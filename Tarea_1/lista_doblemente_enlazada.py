@@ -102,6 +102,11 @@ class ListaDoblementeEnlazada:
                     nuevo_nodo = nuevo_nodo.siguiente
 
     def mostrar_datos(self):
+        if (self.cabeza == self.cola and self.cabeza == None):
+            os.system("cls")
+            print("La lista está vacía, primero debe ingresar datos.")
+            return
+
         nuevo_nodo = self.cabeza
         literal = "None <- "
         while (nuevo_nodo):
@@ -113,6 +118,7 @@ class ListaDoblementeEnlazada:
                 literal += str(nodo_datos) + " <-> "
             nuevo_nodo = nuevo_nodo.siguiente
         literal += "None"
+        os.system("cls")
         print(literal)
 
 
@@ -157,8 +163,8 @@ def insertar_final():
 
 def mostrar_lista():
     os.system("cls")
-    print("elementos de la lista doblemente enlazada")
-    print("Presione ENTER para continuar...")
+    alumno.mostrar_datos()
+    print("\nPresione ENTER para continuar...")
     msvcrt.getch()
 
 
