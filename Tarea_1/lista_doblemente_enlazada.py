@@ -149,19 +149,19 @@ def insertar_final():
     msvcrt.getch()
 
 
+def mostrar_lista():
+    os.system("cls")
+    print("elementos de la lista doblemente enlazada")
+    print("Presione ENTER para continuar...")
+    msvcrt.getch()
+
+
 def eliminar_por_valor():
     os.system("cls")
     print("Eliminar alumno de la lista\n")
     carnet = int(input("Ingrese el carné del alumno que desea eliminar: "))
     alumno.eliminar_por_valor(carnet)
     print("\nPresione ENTER para continuar...")
-    msvcrt.getch()
-
-
-def mostrar_lista():
-    os.system("cls")
-    print("elementos de la lista doblemente enlazada")
-    print("Presione ENTER para continuar...")
     msvcrt.getch()
 
 
@@ -183,8 +183,8 @@ while True:
     print("Menu de operaciones: lista doblemente enlazada")
     print("1. Insertar al inicio de la lista")
     print("2. Insertar al final de la lista")
-    print("3. Elimnar de la lista un valor específico")
-    print("4. Mostar lista")
+    print("3. Mostar lista")
+    print("4. Elimnar de la lista un valor específico")
     print("5. Salir del programa")
     valor = input("Seleccione una opcion: ")
     if (valor == "1"):
@@ -192,9 +192,9 @@ while True:
     elif (valor == "2"):
         insertar_final()
     elif (valor == "3"):
-        eliminar_por_valor()
-    elif (valor == "4"):
         mostrar_lista()
+    elif (valor == "4"):
+        eliminar_por_valor()
     elif (valor == "5"):
         Salir()
     else:
