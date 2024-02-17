@@ -52,6 +52,7 @@ class ListaDoblementeEnlazada:
 
     def eliminar_por_valor(self, carnet):
         if (self.cabeza is None and self.cola is None):
+            os.system("cls")
             print("Lista vacia, primero debe ingresar datos.")
             return
 
@@ -61,6 +62,7 @@ class ListaDoblementeEnlazada:
                 self.cabeza = None
                 self.cola = None
                 nuevo_nodo = None
+                os.system("cls")
                 print("El registro fue eliminado correctamente.")
                 break
 
@@ -68,6 +70,7 @@ class ListaDoblementeEnlazada:
                 nuevo_nodo = nuevo_nodo.siguiente
                 nuevo_nodo.anterior = None
                 self.cabeza = nuevo_nodo
+                os.system("cls")
                 print("El registro fue eliminado correctamente.")
                 break
 
@@ -75,6 +78,7 @@ class ListaDoblementeEnlazada:
                 nuevo_nodo = nuevo_nodo.anterior
                 nuevo_nodo.siguiente = None
                 self.cola = nuevo_nodo
+                os.system("cls")
                 print("El registro fue eliminado correctamente.")
                 break
 
@@ -85,10 +89,12 @@ class ListaDoblementeEnlazada:
                     nodo_temporal_uno.siguiente = nodo_temporal_dos
                     nodo_temporal_dos.anterior = nodo_temporal_uno
                     nuevo_nodo = nodo_temporal_dos
+                    os.system("cls")
                     print("El registro fue eliminado correctamente.")
                     break
 
                 elif (nuevo_nodo.siguiente == None and nuevo_nodo.carnet != carnet):
+                    os.system("cls")
                     print("No se encontro el carnet que busca.")
                     break
 
