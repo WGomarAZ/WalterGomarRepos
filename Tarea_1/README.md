@@ -45,7 +45,8 @@ Esta función se encarga de eliminar un registro de la lista, lo único que nece
 funcionar es que ingresemos el carné del estudiante. El programa está preparado poder eliminar un registro ya
 sea que esté al comienzo de la lista, al final o en cualquier posición de la lista (o si es el último registro).
 
-**A tomar en cuenta**
+#### A tomar en cuenta
+
 Si no conoce que carné corresponde a que estudiante, siempre puede recurrir a la funcion de mostrar la lista.
 
 ### Salir del programa
