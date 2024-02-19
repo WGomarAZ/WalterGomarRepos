@@ -2,9 +2,27 @@ import os
 import msvcrt
 
 
+def convertir_a_binario(n):
+    if (n <= 0):
+        return ""
+    else:
+        return convertir_a_binario(n//2)+str(n % 2)
+
+
 def binario():
     os.system("cls")
-    print("Conversion a binario")
+    print("Conversion a binario\n")
+    numero_decimal = int(input("Ingrese un número para convertir a binario: "))
+    numero_binario = convertir_a_binario(numero_decimal)
+
+    if (numero_binario == ""):
+        os.system("cls")
+        print(f"{numero_decimal} en el sistema binario es igual a: 0")
+    else:
+        os.system("cls")
+        print(str(numero_decimal) +
+              " en el sistema binario es igual a: "+numero_binario)
+
     print("\nPresione cualquier tecla para continuar...")
     msvcrt.getch()
 
