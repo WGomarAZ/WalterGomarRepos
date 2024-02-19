@@ -190,7 +190,7 @@ def invalido():
     msvcrt.getch()
 
 
-while True:
+while (True):
     os.system("cls")
     print("Menu de operaciones: lista doblemente enlazada")
     print("1. Insertar al inicio de la lista")
