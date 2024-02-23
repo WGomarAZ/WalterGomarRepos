@@ -1,5 +1,6 @@
 import os
 import msvcrt
+import math
 
 
 def convertir_a_binario(n):
@@ -26,6 +27,58 @@ def binario():
     print("\nPresione cualquier tecla para continuar...")
     msvcrt.getch()
 
+def calcular_raiz_cuadrada(n):
+    return int(math.sqrt(n))
+
+def raiz_cuadrada_entera(n):
+    if n < 0:
+        return -1
+    elif n == 0:
+        return 0
+    else:
+        return calcular_raiz_cuadrada(n)
+
+def raiz():
+    os.system("cls")
+    print("Raiz cuadrada entera\n")
+    valor = int(
+        input("Ingrese un numero para obtener su raiz cuadrada entera: "))
+    resultado = raiz_cuadrada_entera(valor)
+
+    if resultado == -1:
+        os.system("cls")
+        print("Los numeros negativos no tienen raiz cuadrada real.")
+    elif resultado == 0:
+        os.system("cls")
+        print(f"La raiz cuadrada de {valor} es: {resultado}")
+    else:
+        os.system("cls")
+        print(f"La raiz cuadrada de {valor} es: {resultado}")
+
+    print("\nPresiona cualquier tecla para continuar...")
+    msvcrt.getch()   
+
+conversiones = {
+    "I": 1,
+    "V": 5,
+    "X": 10,
+    "L": 50,
+    "C": 100,
+    "D": 500,
+    "M": 1000
+}
+
+
+def convertir_a_decimal(n):
+    if len(n) == 0:
+        return 0
+    if len(n) == 1:
+        return conversiones.get(n[0], 0)  # Utilizamos get() para evitar KeyError
+    if conversiones.get(n[0], 0) < conversiones.get(n[1], 0):
+        return -conversiones.get(n[0], 0) + convertir_a_decimal(n[1:])
+    else:
+        return conversiones.get(n[0], 0) + convertir_a_decimal(n[1:])
+    
 
 def contar():
     os.system("cls")
@@ -34,16 +87,21 @@ def contar():
     msvcrt.getch()
 
 
-def raiz():
-    os.system("cls")
-    print("Raiz cuadrada")
-    print("\nPresiona cualquier tecla para continuar...")
-    msvcrt.getch()
-
-
 def decimal():
     os.system("cls")
-    print("Conversion a decimal")
+    print("Conversion a decimal desde romano\n")
+    valor = input(
+        "Ingrese un numero romano para convertirlo a sistema decimal: ")
+    romano_mayus = valor.upper()
+    resultado = convertir_a_decimal(romano_mayus)
+
+    if resultado == 0:
+        os.system("cls")
+        print("Debe ingresar un numero para poder convertir")
+    else:
+        os.system("cls")
+        print(f"{romano_mayus} en sistema decimal es: {resultado}")
+
     print("\nPresiona cualquier tecla para continuar...")
     msvcrt.getch()
 
