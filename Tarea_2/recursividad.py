@@ -82,9 +82,24 @@ def convertir_a_decimal(n):
 
 def contar():
     os.system("cls")
-    print("Contar digitos")
+    print("Contador de dígitos")
+    valor = int(input("Ingrese un numero para poder contar los dígitos que lo conforman "))
+    numero = valor
+    resultado = contar_digitos(numero)
+    if resultado == 0:
+        os.system("cls")
+        print ("Ingrese un número diferente de 0")
+    else: 
+        os.system("cls")
+        print(f"{numero} tiene {resultado} dígitos")
     print("\nPresiona cualquier tecla para continuar...")
     msvcrt.getch()
+
+def contar_digitos(n):
+    if n < 10:
+        return 1
+    else:
+        return 1 + contar_digitos(n/10)
 
 
 def decimal():
@@ -109,9 +124,23 @@ def decimal():
 def enteros():
     os.system("cls")
     print("Suma de numeros enteros")
+    valor = int(input("Ingrese un numero entero para realizar la sumatoria de sus predecesores hasta el numero ingresado "))
+    numero = valor
+    resultado = suma_numeros_enteros(numero)
+    if resultado == 0:
+        os.system("cls")
+        print ("Ingrese un número diferente de 0")
+    else: 
+        os.system("cls")
+        print(f"La suma de los numeros hasta {numero} es {resultado}")
     print("\nPresiona cualquier tecla para continuar...")
     msvcrt.getch()
 
+def suma_numeros_enteros(n):
+    if n == 0:
+        return 0
+    else:
+        return n + suma_numeros_enteros(n-1)
 
 def salir():
     os.system("cls")
