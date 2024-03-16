@@ -25,6 +25,34 @@ class Arbol_Busqueda_Binario:
 
         return nodo
 
+    def buscar_numero(self, numero, nodo):
+        if nodo is None:
+            return None
+
+        if nodo.numero == numero:
+            return nodo
+
+        if numero < nodo.numero:
+            return self.buscar_numero(numero, nodo.izquierda)
+
+        if numero > nodo.numero:
+            return self.buscar_numero(numero, nodo.derecha)
+
+    def eliminar_numero(self, numero, nodo):
+        if nodo is None:
+            return nodo
+
+        if nodo.numero == numero and nodo.izquierda is None and nodo.derecha is None:
+            return None
+
+        if numero < nodo.numero:
+            nodo.izquierda = self.eliminar_numero(numero, nodo.izquierda)
+
+        if numero > nodo.numero:
+            nodo.derecha = self.eliminar_numero(numero, nodo.derecha)
+
+        return nodo
+
 
 # CREAMOS LA INSTANCIA PARA ACCEDER A LAS FUNCIONES Y VALORES
 arbol = Arbol_Busqueda_Binario()
@@ -75,9 +103,19 @@ def buscar():
 # FUCNION PARA ELIMINAR DATOS
 def eliminar():
     os.system("cls")
-    print("Eliminar datos")
-    print("Presione cualquier tecla para continuara...")
-    msvcrt.getch()
+    valor = input("Ingrese el número que desea eliminar del arbol: ")
+    if not valor.isdigit():
+        print("\nEl dato a ingresar debe ser un número.")
+        print("Presione cualquier tecla pra continuar...")
+        msvcrt.getch()
+    else:
+        valor = int(valor)
+        arbol.root = arbol.eliminar_numero(valor, arbol.root)
+
+        if arbol.root is not None:
+            print("\nEl número se eliminó correctamente.")
+            print("Presione cualquier tecla para continuar...")
+            msvcrt.getch()
 
 
 # FUNCION PARA CARGAR DATOS DESDE UN ARCHIVO
