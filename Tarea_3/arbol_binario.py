@@ -94,7 +94,7 @@ arbol = Arbol_Busqueda_Binario()
 def insertar():
     os.system("cls")
     print("A continuación deberá ingresar los número que desee insertar en el arbol.")
-    print("Ingrese \"fin\" para detener la lectura de datos.\n")
+    print('Ingrese "fin" para detener la lectura de datos.\n')
 
     while True:
         valor = input("Ingrese el número que desea insertar en el arbol: ")
@@ -108,8 +108,7 @@ def insertar():
                 break
             else:
                 os.system("cls")
-                print(
-                    "Debe ingresar un número o la palabra \"fin\" para detener la lectura de datos.")
+                print('Debe ingresar un número o la palabra "fin" para detener la lectura de datos.')
                 print("Presione cualquier tecla para continuar...")
                 msvcrt.getch()
         else:
@@ -154,8 +153,7 @@ def eliminar():
 def cargar():
     os.system("cls")
     # FORMATO PARA LA RUTA (SE DEBE HACER MANUAL) "D:\\Uni\\Programación III\\Grupo\\WalterGomarRepos\\Tarea_3\\datos.txt"
-    ruta_archivo = input(
-        "Ingrese la ruta de su archivo para cargar los datos: ")
+    ruta_archivo = input("Ingrese la ruta de su archivo para cargar los datos: ")
     leer_archivo(ruta_archivo)
 
     for numero in numeros:
@@ -175,13 +173,7 @@ def salir():
 
 # SE DEFINE LA FUNCION PRINCIPAL QUE EJECUTA EL MENÚ Y LA LOGÍSTICA PARA LA PRESENTACIÓN DEL PROGRAMA
 def menu():
-    opciones = {
-        1: insertar,
-        2: buscar,
-        3: eliminar,
-        4: cargar,
-        5: salir
-    }
+    opciones = {1: insertar, 2: buscar, 3: eliminar, 4: cargar, 5: salir}
 
     # CICLO PARA IMPRIMIR EL MENÚ
     while True:

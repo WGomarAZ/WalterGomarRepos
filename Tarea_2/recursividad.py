@@ -4,10 +4,10 @@ import math
 
 
 def convertir_a_binario(n):
-    if (n <= 0):
+    if n <= 0:
         return ""
     else:
-        return convertir_a_binario(n//2)+str(n % 2)
+        return convertir_a_binario(n // 2) + str(n % 2)
 
 
 def binario():
@@ -16,19 +16,20 @@ def binario():
     numero_decimal = int(input("Ingrese un número para convertir a binario: "))
     numero_binario = convertir_a_binario(numero_decimal)
 
-    if (numero_binario == ""):
+    if numero_binario == "":
         os.system("cls")
         print(f"{numero_decimal} en el sistema binario es igual a: 0")
     else:
         os.system("cls")
-        print(str(numero_decimal) +
-              " en el sistema binario es igual a: "+numero_binario)
+        print(str(numero_decimal) + " en el sistema binario es igual a: " + numero_binario)
 
     print("\nPresione cualquier tecla para continuar...")
     msvcrt.getch()
 
+
 def calcular_raiz_cuadrada(n):
     return int(math.sqrt(n))
+
 
 def raiz_cuadrada_entera(n):
     if n < 0:
@@ -38,11 +39,11 @@ def raiz_cuadrada_entera(n):
     else:
         return calcular_raiz_cuadrada(n)
 
+
 def raiz():
     os.system("cls")
     print("Raiz cuadrada entera\n")
-    valor = int(
-        input("Ingrese un numero para obtener su raiz cuadrada entera: "))
+    valor = int(input("Ingrese un numero para obtener su raiz cuadrada entera: "))
     resultado = raiz_cuadrada_entera(valor)
 
     if resultado == -1:
@@ -56,17 +57,10 @@ def raiz():
         print(f"La raiz cuadrada de {valor} es: {resultado}")
 
     print("\nPresiona cualquier tecla para continuar...")
-    msvcrt.getch()   
+    msvcrt.getch()
 
-conversiones = {
-    "I": 1,
-    "V": 5,
-    "X": 10,
-    "L": 50,
-    "C": 100,
-    "D": 500,
-    "M": 1000
-}
+
+conversiones = {"I": 1, "V": 5, "X": 10, "L": 50, "C": 100, "D": 500, "M": 1000}
 
 
 def convertir_a_decimal(n):
@@ -78,7 +72,7 @@ def convertir_a_decimal(n):
         return -conversiones.get(n[0], 0) + convertir_a_decimal(n[1:])
     else:
         return conversiones.get(n[0], 0) + convertir_a_decimal(n[1:])
-    
+
 
 def contar():
     os.system("cls")
@@ -88,25 +82,25 @@ def contar():
     resultado = contar_digitos(numero)
     if resultado == 0:
         os.system("cls")
-        print ("Ingrese un número diferente de 0")
-    else: 
+        print("Ingrese un número diferente de 0")
+    else:
         os.system("cls")
         print(f"{numero} tiene {resultado} dígitos")
     print("\nPresiona cualquier tecla para continuar...")
     msvcrt.getch()
 
+
 def contar_digitos(n):
     if n < 10:
         return 1
     else:
-        return 1 + contar_digitos(n/10)
+        return 1 + contar_digitos(n / 10)
 
 
 def decimal():
     os.system("cls")
     print("Conversion a decimal desde romano\n")
-    valor = input(
-        "Ingrese un numero romano para convertirlo a sistema decimal: ")
+    valor = input("Ingrese un numero romano para convertirlo a sistema decimal: ")
     romano_mayus = valor.upper()
     resultado = convertir_a_decimal(romano_mayus)
 
@@ -124,23 +118,27 @@ def decimal():
 def enteros():
     os.system("cls")
     print("Suma de numeros enteros")
-    valor = int(input("Ingrese un numero entero para realizar la sumatoria de sus predecesores hasta el numero ingresado "))
+    valor = int(
+        input("Ingrese un numero entero para realizar la sumatoria de sus predecesores hasta el numero ingresado ")
+    )
     numero = valor
     resultado = suma_numeros_enteros(numero)
     if resultado == 0:
         os.system("cls")
-        print ("Ingrese un número diferente de 0")
-    else: 
+        print("Ingrese un número diferente de 0")
+    else:
         os.system("cls")
         print(f"La suma de los numeros hasta {numero} es {resultado}")
     print("\nPresiona cualquier tecla para continuar...")
     msvcrt.getch()
 
+
 def suma_numeros_enteros(n):
     if n == 0:
         return 0
     else:
-        return n + suma_numeros_enteros(n-1)
+        return n + suma_numeros_enteros(n - 1)
+
 
 def salir():
     os.system("cls")
@@ -157,7 +155,7 @@ def defecto():
     msvcrt.getch()
 
 
-while (True):
+while True:
     os.system("cls")
     print("TAREA NO. 02\n")
     print("Seleccione una opcion")
@@ -171,22 +169,22 @@ while (True):
     try:
         opcion = int(input("\nSeleccione una opcion: "))
 
-        if (opcion == 1):
+        if opcion == 1:
             binario()
-        elif (opcion == 2):
+        elif opcion == 2:
             contar()
-        elif (opcion == 3):
+        elif opcion == 3:
             raiz()
-        elif (opcion == 4):
+        elif opcion == 4:
             decimal()
-        elif (opcion == 5):
+        elif opcion == 5:
             enteros()
-        elif (opcion == 0):
+        elif opcion == 0:
             salir()
         else:
             defecto()
 
-    except (ValueError):
+    except ValueError:
         os.system("cls")
         print("Opcion invalida, no se admite texto.")
         print("\nPresione cualquier tecla para continuar...")

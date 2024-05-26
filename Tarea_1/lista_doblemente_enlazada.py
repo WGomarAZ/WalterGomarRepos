@@ -18,47 +18,47 @@ class ListaDoblementeEnlazada:
 
     def carnet_repetido(self, carnet):
         nodo_actual = self.cabeza
-        while (nodo_actual):
-            if (nodo_actual.carnet == carnet):
+        while nodo_actual:
+            if nodo_actual.carnet == carnet:
                 return True
             nodo_actual = nodo_actual.siguiente
         return False
 
     def insertar_al_inicio(self, nombre, apellido, carnet):
-        if (self.carnet_repetido(carnet)):
+        if self.carnet_repetido(carnet):
             return True
 
         nuevo_nodo = Nodo(nombre, apellido, carnet)
         nuevo_nodo.siguiente = self.cabeza
         nuevo_nodo.anterior = None
-        if (self.cabeza is not None):
+        if self.cabeza is not None:
             self.cabeza.anterior = nuevo_nodo
         self.cabeza = nuevo_nodo
-        if (self.cola is None):
+        if self.cola is None:
             self.cola = nuevo_nodo
 
     def insertar_al_final(self, nombre, apellido, carnet):
-        if (self.carnet_repetido(carnet)):
+        if self.carnet_repetido(carnet):
             return True
 
         nuevo_nodo = Nodo(nombre, apellido, carnet)
         nuevo_nodo.anterior = self.cola
         nuevo_nodo.siguiente = None
-        if (self.cola is not None):
+        if self.cola is not None:
             self.cola.siguiente = nuevo_nodo
         self.cola = nuevo_nodo
-        if (self.cabeza is None):
+        if self.cabeza is None:
             self.cabeza = nuevo_nodo
 
     def eliminar_por_valor(self, carnet):
-        if (self.cabeza is None and self.cola is None):
+        if self.cabeza is None and self.cola is None:
             os.system("cls")
             print("Lista vacia, primero debe ingresar datos.")
             return
 
         nuevo_nodo = self.cabeza
-        while (nuevo_nodo):
-            if (nuevo_nodo.carnet == carnet and nuevo_nodo.siguiente == None and nuevo_nodo.anterior == None):
+        while nuevo_nodo:
+            if nuevo_nodo.carnet == carnet and nuevo_nodo.siguiente == None and nuevo_nodo.anterior == None:
                 self.cabeza = None
                 self.cola = None
                 nuevo_nodo = None
@@ -66,7 +66,7 @@ class ListaDoblementeEnlazada:
                 print("El registro fue eliminado correctamente.")
                 break
 
-            elif (nuevo_nodo.anterior == None and nuevo_nodo.carnet == carnet):
+            elif nuevo_nodo.anterior == None and nuevo_nodo.carnet == carnet:
                 nuevo_nodo = nuevo_nodo.siguiente
                 nuevo_nodo.anterior = None
                 self.cabeza = nuevo_nodo
@@ -74,7 +74,7 @@ class ListaDoblementeEnlazada:
                 print("El registro fue eliminado correctamente.")
                 break
 
-            elif (nuevo_nodo.siguiente == None and nuevo_nodo.carnet == carnet):
+            elif nuevo_nodo.siguiente == None and nuevo_nodo.carnet == carnet:
                 nuevo_nodo = nuevo_nodo.anterior
                 nuevo_nodo.siguiente = None
                 self.cola = nuevo_nodo
@@ -83,7 +83,7 @@ class ListaDoblementeEnlazada:
                 break
 
             else:
-                if (nuevo_nodo.carnet == carnet):
+                if nuevo_nodo.carnet == carnet:
                     nodo_temporal_uno = nuevo_nodo.anterior
                     nodo_temporal_dos = nuevo_nodo.siguiente
                     nodo_temporal_uno.siguiente = nodo_temporal_dos
@@ -93,7 +93,7 @@ class ListaDoblementeEnlazada:
                     print("El registro fue eliminado correctamente.")
                     break
 
-                elif (nuevo_nodo.siguiente == None and nuevo_nodo.carnet != carnet):
+                elif nuevo_nodo.siguiente == None and nuevo_nodo.carnet != carnet:
                     os.system("cls")
                     print("No se encontro el carnet que busca.")
                     break
@@ -102,17 +102,17 @@ class ListaDoblementeEnlazada:
                     nuevo_nodo = nuevo_nodo.siguiente
 
     def mostrar_datos(self):
-        if (self.cabeza == self.cola and self.cabeza == None):
+        if self.cabeza == self.cola and self.cabeza == None:
             os.system("cls")
             print("La lista está vacía, primero debe ingresar datos.")
             return
 
         nuevo_nodo = self.cabeza
         literal = "None <- "
-        while (nuevo_nodo):
+        while nuevo_nodo:
             nodo_datos = f"{
                 nuevo_nodo.carnet}: {nuevo_nodo.nombre} {nuevo_nodo.apellido}"
-            if (nuevo_nodo.siguiente == None):
+            if nuevo_nodo.siguiente == None:
                 literal += str(nodo_datos) + " -> "
             else:
                 literal += str(nodo_datos) + " <-> "
@@ -132,13 +132,15 @@ def insertar_inicio():
     apellido = input("Ingrese el apellido del alumno: ")
     carnet = int(input("Ingrese el número de carné del alumno: "))
     resultado = alumno.insertar_al_inicio(nombre, apellido, carnet)
-    if (resultado):
+    if resultado:
         os.system("cls")
         print("Número de carné repetido, ingrese uno diferente")
     else:
         os.system("cls")
-        print(f"""Se registró con éxito la siguiente información: {
-              carnet} - {nombre} {apellido}""")
+        print(
+            f"""Se registró con éxito la siguiente información: {
+              carnet} - {nombre} {apellido}"""
+        )
     print("\nPresione ENTER para continuar...")
     msvcrt.getch()
 
@@ -150,13 +152,15 @@ def insertar_final():
     apellido = input("Ingrese el apellido del alumno: ")
     carnet = int(input("Ingrese el número de carné del alumno: "))
     resultado = alumno.insertar_al_final(nombre, apellido, carnet)
-    if (resultado):
+    if resultado:
         os.system("cls")
         print("Número de carné repetido, ingrese uno diferente")
     else:
         os.system("cls")
-        print(f"""Se registró con éxito la siguiente información: {
-              carnet} - {nombre} {apellido}""")
+        print(
+            f"""Se registró con éxito la siguiente información: {
+              carnet} - {nombre} {apellido}"""
+        )
     print("\nPresione ENTER para continuar...")
     msvcrt.getch()
 
@@ -190,7 +194,7 @@ def invalido():
     msvcrt.getch()
 
 
-while (True):
+while True:
     os.system("cls")
     print("Menu de operaciones: lista doblemente enlazada")
     print("1. Insertar al inicio de la lista")
@@ -199,15 +203,15 @@ while (True):
     print("4. Elimnar de la lista un valor específico")
     print("5. Salir del programa")
     valor = input("Seleccione una opcion: ")
-    if (valor == "1"):
+    if valor == "1":
         insertar_inicio()
-    elif (valor == "2"):
+    elif valor == "2":
         insertar_final()
-    elif (valor == "3"):
+    elif valor == "3":
         mostrar_lista()
-    elif (valor == "4"):
+    elif valor == "4":
         eliminar_por_valor()
-    elif (valor == "5"):
+    elif valor == "5":
         Salir()
     else:
         invalido()
