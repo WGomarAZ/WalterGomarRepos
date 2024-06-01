@@ -1,7 +1,7 @@
 import tkinter
 from tkinter import messagebox
 import random
-from graph import GrafoTotito
+from graph import GrafoTotito  # Asegúrate de que el nombre del archivo sea correcto
 
 
 class Totito:
@@ -60,9 +60,9 @@ class Totito:
         estado_actual = self.obtener_estado()
         self.grafo.agregar_estado(estado_actual)
 
-        movimiento = self.grafo.mejor_movimiento(self.obtener_estado(), movimientos_disponibles)
+        movimiento = self.grafo.mejor_movimiento(estado_actual, movimientos_disponibles)
 
-        if movimiento:
+        if movimiento is not None:
             self.tablero[movimiento] = self.turno
             self.botones[movimiento].config(text=self.turno)
 
@@ -84,7 +84,7 @@ class Totito:
         return tuple(self.tablero.values())
 
     def verificar_ganador(self):
-        cambinaciones = [
+        combinaciones = [
             ["A1", "A2", "A3"],  # Horizontales
             ["B1", "B2", "B3"],
             ["C1", "C2", "C3"],
@@ -95,7 +95,7 @@ class Totito:
             ["A3", "B2", "C1"],
         ]
 
-        for combinacion in cambinaciones:
+        for combinacion in combinaciones:
             if self.tablero[combinacion[0]] == self.tablero[combinacion[1]] == self.tablero[combinacion[2]] != "":
                 return self.tablero[combinacion[0]]
         return None
@@ -111,4 +111,8 @@ class Totito:
 def ejecutar():
     root = tkinter.Tk()
     game = Totito(root)
-    root.mainloop
+    root.mainloop()
+
+
+if __name__ == "__main__":
+    ejecutar()

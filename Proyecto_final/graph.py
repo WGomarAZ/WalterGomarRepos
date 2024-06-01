@@ -1,64 +1,107 @@
-class UndirectedGraph:
+import random
+
+
+class GrafoTotito:
     def __init__(self):
-        self.graph_dict = {}
+        self.grafo = {}
+        self.valores_q = {}
+        self.historial_estado = []
+        self.alpha = 0.1
+        self.gamma = 0.9
 
-    def add_vertex(self, vertex):
-        if vertex in self.graph_dict:
-            return "Vertex already in graph"
-        self.graph_dict[vertex] = []
+    def agregar_estado(self, estado):
+        if estado not in self.grafo:
+            self.grafo[estado] = []
+            self.valores_q[estado] = {}
+            for movimiento in range(len(estado)):
+                if estado[movimiento] == "":
+                    self.valores_q[estado][movimiento] = 1
 
-    def add_edge(self, vertex1, vertex2, value=0):
-        if vertex1 not in self.graph_dict or vertex2 not in self.graph_dict:
-            raise ValueError("One or both vertices not found in graph")
-        edge = Edge(vertex1, vertex2, value)
-        self.graph_dict[vertex1].append(edge)
-        self.graph_dict[vertex2].append(Edge(vertex2, vertex1, value))
+        self.actualizar_conexiones(estado)
+        self.historial_estado.append(estado)
 
-    def is_vertex_in(self, vertex):
-        return vertex in self.graph_dict
+    def actualizar_conexiones(self, estado):
+        for i in range(len(estado)):
+            if estado[i] == "":
+                nuevo_estado = list(estado)
+                nuevo_estado[i] = "X" if estado.count("X") <= estado.count("O") else "O"
+                nuevo_estado_tupla = tuple(nuevo_estado)
 
-    def get_vertex(self, vertex_name):
-        for v in self.graph_dict:
-            if vertex_name == v.get_name():
-                return v
-        print(f"Vertex {vertex_name} does not exist")
+                if nuevo_estado_tupla not in self.grafo:
+                    self.grafo[nuevo_estado_tupla] = []
+                    self.valores_q[nuevo_estado_tupla] = {}
+                    for movimiento in range(len(nuevo_estado_tupla)):
+                        if nuevo_estado_tupla[movimiento] == "":
+                            self.valores_q[nuevo_estado_tupla][movimiento] = 1
 
-    def get_neighbours(self, vertex):
-        return self.graph_dict[vertex]
+                if nuevo_estado_tupla not in self.grafo[estado]:
+                    self.grafo[estado].append(nuevo_estado_tupla)
+                if estado not in self.grafo[nuevo_estado_tupla]:
+                    self.grafo[nuevo_estado_tupla].append(estado)
 
-    def __str__(self):
-        all_edges = ""
-        for v1 in self.graph_dict:
-            for edge in self.graph_dict[v1]:
-                all_edges += f"{v1} --({edge.get_value()})--> {edge.get_v2()}\n"
-        return all_edges
+    def mejor_movimiento(self, estado, movimientos_disponibles):
+        estado_str = str(estado)
+        if estado_str not in self.valores_q:
+            self.agregar_estado(estado_str)  # Asegurarse de que el estado esté en los valores Q
 
+        if random.uniform(0, 1) < 0.1:
+            return random.choice(movimientos_disponibles)
+        else:
+            estado_valores_q = self.valores_q[estado_str]
+            valor_q_maximo = max(estado_valores_q[movimiento] for movimiento in movimientos_disponibles)
+            mejores_movimientos = [
+                movimiento
+                for movimiento in movimientos_disponibles
+                if estado_valores_q.get(movimiento, 0) == valor_q_maximo
+            ]
+            return random.choice(mejores_movimientos)
 
-class Edge:
-    def __init__(self, v1, v2, value=0):
-        self.v1 = v1
-        self.v2 = v2
-        self.value = value
+    def actualizar_valores_q(self, turno, resultado):
+        recompensa = 0
+        if resultado == "victoria":
+            recompensa = 1 if turno == "O" else -1
+        elif resultado == "empate":
+            recompensa = 0.5
 
-    def get_value(self):
-        return self.value
+        for i in range(len(self.historial_estado) - 1, -1, -1):
+            estado = self.historial_estado[i]
+            if i == len(self.historial_estado) - 1:
+                recompensa_futura = recompensa
+            else:
+                proximo_estado = self.historial_estado[i + 1]
+                recompensa_futura = self.gamma * max(self.valores_q[proximo_estado].values())
 
-    def set_value(self, value):
-        self.value = value
+            if i == 0:
+                movimiento = [
+                    indice for indice in range(len(estado)) if self.historial_estado[i + 1][indice] != estado[indice]
+                ][0]
+            else:
+                movimiento = [
+                    indice
+                    for indice in range(len(estado))
+                    if self.historial_estado[i][indice] != self.historial_estado[i - 1][indice]
+                ][0]
 
-    def get_v1(self):
-        return self.v1
+            self.valores_q[estado][movimiento] = (1 - self.alpha) * self.valores_q[estado][
+                movimiento
+            ] + self.alpha * recompensa_futura
 
-    def get_v2(self):
-        return self.v2
+    def reiniciar_historial_estados(self):
+        self.historial_estado = []
 
-    def __str__(self):
-        return f"{self.v1} --({self.value})--> {self.v2}"
+    def is_winner(self, estado):
+        combinaciones = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],  # Filas
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],  # Columnas
+            [0, 4, 8],
+            [2, 4, 6],  # Diagonales
+        ]
 
-
-# Representing a Tic-Tac-Toe game state as a dictionary
-initial_state = {"board": [["", "", ""], ["", "", ""], ["", "", ""]], "player": "X"}
-
-graph = UndirectedGraph()
-graph.add_vertex(initial_state)
-print(graph)
+        for combinacion in combinaciones:
+            if estado[combinacion[0]] == estado[combinacion[1]] == estado[combinacion[2]] != "":
+                return True
+        return False
