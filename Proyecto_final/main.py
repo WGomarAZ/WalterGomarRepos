@@ -1,11 +1,11 @@
 import os
 import integrantes
+import totito as tt
 
 
 def case1():
-    os.system("cls")
-    print("CASO UNO")
-    input("\nPRESIONE 'ENTER' PARA CONTINUAR...")
+    if __name__ == "__main__":
+        tt.ejecutar()
 
 
 def case2():
